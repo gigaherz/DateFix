@@ -138,9 +138,19 @@
   <data name="ErrorWhileTouching" xml:space="preserve">
     <value>While touching '{0}': {1}</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="HelpMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HelpMessage.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="HelpMessage" xml:space="preserve">
+    <value>DateFix Help:
+  {0} [&lt;parameters&gt;] [&lt;working directory&gt;|&lt;filename&gt;]
+
+Parameters:
+  -help               Shows this message.
+  -recursive          Process subdirectories.
+  -date=&lt;date&gt;        Use the specified date instead of current.
+  -time=&lt;time&gt;        Use the specified time instead of current.
+  -future-only        Process only files with dates &gt; specified.
+  -touch-readonly     Temporarily remove the readonly attribute.
+  -touch-directories  Process directory dates also, not just files.
+</value>
   </data>
   <data name="Processing" xml:space="preserve">
     <value>Processing '{0}'...</value>
@@ -159,5 +169,11 @@
   </data>
   <data name="ErrorTemplate" xml:space="preserve">
     <value>ERROR: {0}</value>
+  </data>
+  <data name="BooleanParseError" xml:space="preserve">
+    <value>The value is not one of the recognized words ({0} / {1})</value>
+  </data>
+  <data name="WarningNoDatesToSet" xml:space="preserve">
+    <value>No dates selected to be changed. Exiting early.</value>
   </data>
 </root>

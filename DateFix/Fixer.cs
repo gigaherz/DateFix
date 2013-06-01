@@ -82,16 +82,18 @@ namespace DateFix
                     info.Attributes = info.Attributes & ~FileAttributes.ReadOnly;
                 }
 
-                if (info.CreationTime > Args.SetTo ||
-                    info.LastAccessTime > Args.SetTo ||
-                    info.LastWriteTime > Args.SetTo ||
+
+
+                if ((info.CreationTime > Args.SetTo && Args.SetCreation) ||
+                    (info.LastAccessTime > Args.SetTo && Args.SetLastAccess) ||
+                    (info.LastWriteTime > Args.SetTo && Args.SetWrite) ||
                     !Args.FutureOnly)
                 {
                     Log.Info(Resources.Touching, info.FullName);
 
-                    info.CreationTime = Args.SetTo;
-                    info.LastAccessTime = Args.SetTo;
-                    info.LastWriteTime = Args.SetTo;
+                    if(Args.SetCreation) info.CreationTime = Args.SetTo;
+                    if (Args.SetLastAccess) info.LastAccessTime = Args.SetTo;
+                    if (Args.SetWrite) info.LastWriteTime = Args.SetTo;
                 }
 
                 if (wasReadonly)

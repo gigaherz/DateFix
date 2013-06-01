@@ -7,6 +7,12 @@ namespace DateFix
 {
     internal static class Args
     {
+        private static readonly HashSet<string> Trues = new HashSet<string>(new[] {"true", "yes", "y"});
+        private static readonly HashSet<string> Falses = new HashSet<string>(new[] {"false", "no", "n"});
+        private static readonly string ValueError = string.Format(Resources.BooleanParseError,
+                                                                  string.Join(", ", Trues),
+                                                                  string.Join(", ", Falses));
+            
         private static bool pathSet;
         private static bool dateSet;
         private static bool timeSet;
@@ -17,6 +23,9 @@ namespace DateFix
         public static bool FutureOnly { get; set; }
         public static bool TouchReadonly { get; set; }
         public static bool TouchDirectories { get; set; }
+        public static bool SetCreation { get; set; }
+        public static bool SetLastAccess { get; set; }
+        public static bool SetWrite { get; set; }
         public static DateTime SetTo { get; set; }
 
         public static bool Parse([NotNull] IEnumerable<string> args)
@@ -25,6 +34,10 @@ namespace DateFix
 
             Path = Environment.CurrentDirectory;
             SetTo = DateTime.Now;
+
+            SetCreation = true;
+            SetLastAccess = true;
+            SetWrite = true;
 
             pathSet = false;
             dateSet = false;
@@ -69,6 +82,12 @@ namespace DateFix
             else
             {
                 SetTo = setToDate.Date + setToTime;
+            }
+
+            if (!SetCreation && !SetLastAccess && !SetWrite)
+            {
+                Log.Warning(Resources.WarningNoDatesToSet);
+                return false;
             }
 
             return true;
@@ -128,11 +147,39 @@ namespace DateFix
                     TouchDirectories = true;
                     break;
 
+                case "-set-creation":
+                    SetCreation = ParseBool(hasValue, parg1, true);
+                    break;
+
+                case "-set-last-access":
+                    SetCreation = ParseBool(hasValue, parg1, true);
+                    break;
+
+                case "-set-write":
+                    SetCreation = ParseBool(hasValue, parg1, true);
+                    break;
+
                 default:
                     throw new ApplicationException(string.Format(Resources.ErrorUnrecognizedArgument, parg0));
             }
 
             return true;
+        }
+
+        private static bool ParseBool(bool hasValue, string parg1, bool defaultValue)
+        {
+            if (!hasValue)
+                return defaultValue;
+
+            var value = parg1.ToLowerInvariant();
+
+            if (Trues.Contains(value))
+                return true;
+
+            if (Falses.Contains(value))
+                return false;
+
+            throw new FormatException(ValueError);
         }
     }
 }

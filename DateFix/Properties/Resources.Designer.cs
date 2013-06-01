@@ -61,6 +61,15 @@ namespace DateFix.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The value is not one of the recognized words ({0} / {1}).
+        /// </summary>
+        internal static string BooleanParseError {
+            get {
+                return ResourceManager.GetString("BooleanParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Directory specified more than once..
         /// </summary>
         internal static string ErrorDirectorySpecifiedMoreThanOnce {
@@ -185,6 +194,15 @@ namespace DateFix.Properties {
         internal static string WarningDuplicateArgument {
             get {
                 return ResourceManager.GetString("WarningDuplicateArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No dates selected to be changed. Exiting early..
+        /// </summary>
+        internal static string WarningNoDatesToSet {
+            get {
+                return ResourceManager.GetString("WarningNoDatesToSet", resourceCulture);
             }
         }
         
