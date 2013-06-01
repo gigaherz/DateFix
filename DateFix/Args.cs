@@ -45,7 +45,7 @@ namespace DateFix
                         Console.WriteLine(Messages.WarningDuplicateArgument, parg0);
                     }
 
-                    if (!ParseArg(parg0, iarg, parg1))
+                    if (!ParseArg(iarg >= 0, parg0, parg1))
                         return false;
                 }
                 else
@@ -73,7 +73,7 @@ namespace DateFix
             return true;
         }
 
-        private static bool ParseArg(string parg0, int iarg, string parg1)
+        private static bool ParseArg(bool hasValue, string parg0, string parg1)
         {
             switch (parg0)
             {
@@ -82,13 +82,13 @@ namespace DateFix
                     return false;
 
                 case "-recursive":
-                    Expect.NoValue(iarg, parg0);
+                    Expect.NoValue(hasValue, parg0);
 
                     Recursive = true;
                     break;
 
                 case "-date":
-                    Expect.Value(iarg, parg0);
+                    Expect.Value(hasValue, parg0);
 
                     setToDate = DateTime.Parse(parg1);
                     dateSet = true;
@@ -102,26 +102,26 @@ namespace DateFix
                     break;
 
                 case "-time":
-                    Expect.Value(iarg, parg0);
+                    Expect.Value(hasValue, parg0);
 
                     setToTime = TimeSpan.Parse(parg1);
                     timeSet = true;
                     break;
 
                 case "-future-only":
-                    Expect.NoValue(iarg, parg0);
+                    Expect.NoValue(hasValue, parg0);
 
                     FutureOnly = true;
                     break;
 
                 case "-touch-readonly":
-                    Expect.NoValue(iarg, parg0);
+                    Expect.NoValue(hasValue, parg0);
 
                     TouchReadonly = true;
                     break;
 
                 case "-touch-directories":
-                    Expect.NoValue(iarg, parg0);
+                    Expect.NoValue(hasValue, parg0);
 
                     TouchDirectories = true;
                     break;
