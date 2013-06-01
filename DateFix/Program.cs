@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using DateFix.Annotations;
 using DateFix.Properties;
@@ -33,7 +34,7 @@ namespace DateFix
 
         public static void PrintHelp([NotNull] TextWriter output)
         {
-            output.WriteLine(Resources.HelpMessage);
+            output.WriteLine(Resources.HelpMessage, Process.GetCurrentProcess().ProcessName);
         }
     }
 }
