@@ -7,8 +7,8 @@ namespace DateFix
 {
     internal static class Args
     {
-        private static readonly HashSet<string> Trues = new HashSet<string>(new[] {"true", "yes", "y"});
-        private static readonly HashSet<string> Falses = new HashSet<string>(new[] {"false", "no", "n"});
+        private static readonly HashSet<string> Trues = new HashSet<string>(new[] {"true", "yes", "y", "on"});
+        private static readonly HashSet<string> Falses = new HashSet<string>(new[] {"false", "no", "n", "off"});
         private static readonly string ValueError = string.Format(Resources.BooleanParseError,
                                                                   string.Join(", ", Trues),
                                                                   string.Join(", ", Falses));
@@ -99,7 +99,7 @@ namespace DateFix
             switch (parg0)
             {
                 case "-help":
-                    Log.PrintHelp(Console.Out);
+                    Program.PrintHelp(Console.Out);
                     return false;
 
                 case "-recursive":

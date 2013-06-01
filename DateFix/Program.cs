@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using DateFix.Annotations;
 using DateFix.Properties;
 
@@ -26,8 +27,13 @@ namespace DateFix
                 Log.Error(Resources.ErrorParsingCommandLine, e.Message);
             }
 
-            Log.PrintHelp(Console.Error);
+            PrintHelp(Console.Error);
             return 1;
+        }
+
+        public static void PrintHelp([NotNull] TextWriter output)
+        {
+            output.WriteLine(Resources.HelpMessage);
         }
     }
 }

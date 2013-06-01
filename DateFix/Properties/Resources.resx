@@ -139,17 +139,23 @@
     <value>While touching '{0}': {1}</value>
   </data>
   <data name="HelpMessage" xml:space="preserve">
-    <value>DateFix Help:
+    <value>DateFix Usage:
   {0} [&lt;parameters&gt;] [&lt;working directory&gt;|&lt;filename&gt;]
 
 Parameters:
-  -help               Shows this message.
-  -recursive          Process subdirectories.
-  -date=&lt;date&gt;        Use the specified date instead of current.
-  -time=&lt;time&gt;        Use the specified time instead of current.
-  -future-only        Process only files with dates &gt; specified.
-  -touch-readonly     Temporarily remove the readonly attribute.
-  -touch-directories  Process directory dates also, not just files.
+  -help                        Shows this message.
+  -recursive                   Process subdirectories.
+  -date=&lt;date&gt;                 Use the specified date instead of current.
+  -time=&lt;time&gt;                 Use the specified time instead of current.
+  -future-only                 Process only files with dates over the specified.
+  -touch-readonly              Temporarily remove the readonly attribute.
+  -touch-directories           Process directory dates also, not just files.
+  -set-creation[:&lt;boolean&gt;]    Toggles setting the creation date.
+                                     (default on)
+  -set-last-access[:&lt;boolean&gt;] Toggles setting the last access date.
+                                     (default on)
+  -set-write[:&lt;boolean&gt;]       Toggles setting the write date.
+                                     (default on)
 </value>
   </data>
   <data name="Processing" xml:space="preserve">

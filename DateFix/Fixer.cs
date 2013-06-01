@@ -82,8 +82,6 @@ namespace DateFix
                     info.Attributes = info.Attributes & ~FileAttributes.ReadOnly;
                 }
 
-
-
                 if ((info.CreationTime > Args.SetTo && Args.SetCreation) ||
                     (info.LastAccessTime > Args.SetTo && Args.SetLastAccess) ||
                     (info.LastWriteTime > Args.SetTo && Args.SetWrite) ||

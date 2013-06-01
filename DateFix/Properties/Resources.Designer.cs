@@ -142,18 +142,7 @@ namespace DateFix.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DateFix Help:
-        ///  {0} [&lt;parameters&gt;] [&lt;working directory&gt;|&lt;filename&gt;]
-        ///
-        ///Parameters:
-        ///  -help               Shows this message.
-        ///  -recursive          Process subdirectories.
-        ///  -date=&lt;date&gt;        Use the specified date instead of current.
-        ///  -time=&lt;time&gt;        Use the specified time instead of current.
-        ///  -future-only        Process only files with dates &gt; specified.
-        ///  -touch-readonly     Temporarily remove the readonly attribute.
-        ///  -touch-directories  Process directory dates also, not just files.
-        ///.
+        ///   Looks up a localized string for the program help.
         /// </summary>
         internal static string HelpMessage {
             get {
