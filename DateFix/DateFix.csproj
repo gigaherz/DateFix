@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Args.cs" />
     <Compile Include="Expect.cs" />
-    <Compile Include="Messages.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Fixer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Annotations.cs" />

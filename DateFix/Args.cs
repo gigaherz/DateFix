@@ -43,7 +43,7 @@ namespace DateFix
 
                     if (argsSeen.Contains(parg0))
                     {
-                        Messages.Warning(Resources.WarningDuplicateArgument, parg0);
+                        Log.Warning(Resources.WarningDuplicateArgument, parg0);
                     }
 
                     if (!ParseArg(iarg >= 0, parg0, parg1))
@@ -63,7 +63,7 @@ namespace DateFix
 
             if (dateSet && !timeSet)
             {
-                Messages.Warning(Resources.WarningDateSpecifiedWithoutTime);
+                Log.Warning(Resources.WarningDateSpecifiedWithoutTime);
                 SetTo = setToDate.Date;
             }
             else
@@ -80,7 +80,7 @@ namespace DateFix
             switch (parg0)
             {
                 case "-help":
-                    Messages.PrintHelp(Console.Out);
+                    Log.PrintHelp(Console.Out);
                     return false;
 
                 case "-recursive":

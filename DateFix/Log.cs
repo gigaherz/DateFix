@@ -6,7 +6,7 @@ using DateFix.Properties;
 namespace DateFix
 {
     [LocalizationRequired(true)]
-    internal static class Messages
+    internal static class Log
     {
         [StringFormatMethod("message")]
         public static void Error([NotNull] string message, params object[] args)

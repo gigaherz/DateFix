@@ -16,14 +16,14 @@ namespace DateFix
             }
             catch (ApplicationException e)
             {
-                Messages.Error(e.Message);
+                Log.Error(e.Message);
             }
             catch (Exception e)
             {
-                Messages.Error(Resources.ErrorParsingCommandLine, e.Message);
+                Log.Error(Resources.ErrorParsingCommandLine, e.Message);
             }
 
-            Messages.PrintHelp(Console.Error);
+            Log.PrintHelp(Console.Error);
         }
     }
 }

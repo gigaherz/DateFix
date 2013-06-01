@@ -29,7 +29,7 @@ namespace DateFix
             }
             catch (Exception e)
             {
-                Messages.Error(Resources.ErrorWhileProcessing, Args.Path, e.Message);
+                Log.Error(Resources.ErrorWhileProcessing, Args.Path, e.Message);
             }
         }
 
@@ -37,7 +37,7 @@ namespace DateFix
         {
             try
             {
-                Messages.Info(Resources.Processing, dir.FullName);
+                Log.Info(Resources.Processing, dir.FullName);
 
                 foreach (FileInfo file in dir.EnumerateFiles())
                 {
@@ -51,7 +51,7 @@ namespace DateFix
             }
             catch (Exception e)
             {
-                Messages.Error(Resources.ErrorWhileProcessing, dir.FullName, e.Message);
+                Log.Error(Resources.ErrorWhileProcessing, dir.FullName, e.Message);
             }
         }
 
@@ -86,7 +86,7 @@ namespace DateFix
                     info.LastWriteTime > Args.SetTo ||
                     !Args.FutureOnly)
                 {
-                    Messages.Info(Resources.Touching, info.FullName);
+                    Log.Info(Resources.Touching, info.FullName);
 
                     info.CreationTime = Args.SetTo;
                     info.LastAccessTime = Args.SetTo;
@@ -100,7 +100,7 @@ namespace DateFix
             }
             catch (Exception e)
             {
-                Messages.Error(Resources.ErrorWhileTouching, info.FullName, e.Message);
+                Log.Error(Resources.ErrorWhileTouching, info.FullName, e.Message);
             }
         }
     }
