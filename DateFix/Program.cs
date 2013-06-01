@@ -1,11 +1,12 @@
 ﻿using System;
+using DateFix.Annotations;
 using DateFix.Properties;
 
 namespace DateFix
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static int Main([NotNull] string[] args)
         {
             try
             {
@@ -13,6 +14,8 @@ namespace DateFix
                 {
                     Fixer.Run();
                 }
+
+                return 0;
             }
             catch (ApplicationException e)
             {
@@ -24,6 +27,7 @@ namespace DateFix
             }
 
             Log.PrintHelp(Console.Error);
+            return 1;
         }
     }
 }

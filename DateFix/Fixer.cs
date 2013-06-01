@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using DateFix.Annotations;
 using DateFix.Properties;
 
 namespace DateFix
@@ -33,7 +34,7 @@ namespace DateFix
             }
         }
 
-        private static void ProcessContents(DirectoryInfo dir)
+        private static void ProcessContents([NotNull] DirectoryInfo dir)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace DateFix
             }
         }
 
-        private static void ProcessPath(DirectoryInfo info)
+        private static void ProcessPath([NotNull] DirectoryInfo info)
         {
             if (Args.TouchDirectories)
                 Touch(info);
@@ -64,7 +65,7 @@ namespace DateFix
                 Paths.Enqueue(info);
         }
 
-        private static void Touch(FileSystemInfo info)
+        private static void Touch([NotNull] FileSystemInfo info)
         {
             try
             {
