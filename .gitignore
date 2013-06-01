@@ -1,4 +1,4 @@
-*.suo
-
 DateFix/bin
 DateFix/obj
+*.suo
+*.user

@@ -1,10 +1,11 @@
 ﻿using System;
+using DateFix.Properties;
 
 namespace DateFix
 {
-    static class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
@@ -15,11 +16,11 @@ namespace DateFix
             }
             catch (ApplicationException e)
             {
-                Console.Error.WriteLine(Messages.Error, e.Message);
+                Messages.Error(e.Message);
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine(Messages.ErrorParsingCommandLine, e.Message);
+                Messages.Error(Resources.ErrorParsingCommandLine, e.Message);
             }
 
             Messages.PrintHelp(Console.Error);

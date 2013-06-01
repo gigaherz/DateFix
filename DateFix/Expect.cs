@@ -1,19 +1,23 @@
 ﻿using System;
+using DateFix.Annotations;
+using DateFix.Properties;
 
 namespace DateFix
 {
-    static class Expect
+    internal static class Expect
     {
+        [ContractAnnotation("halt <= condition: true")]
         public static void NoValue(bool hasValue, string parg0)
         {
             if (hasValue)
-                throw new ApplicationException(string.Format(Messages.ErrorUnexpectedValue, parg0));
+                throw new ApplicationException(string.Format(Resources.ErrorUnexpectedValue, parg0));
         }
 
+        [ContractAnnotation("halt <= condition: false")]
         public static void Value(bool hasValue, string parg0)
         {
             if (!hasValue)
-                throw new ApplicationException(string.Format(Messages.ErrorExpectedValue, parg0));
+                throw new ApplicationException(string.Format(Resources.ErrorExpectedValue, parg0));
         }
     }
 }

@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using DateFix.Annotations;
+using DateFix.Properties;
 
 namespace DateFix
 {
-    static class Args
+    internal static class Args
     {
+        private static bool pathSet;
+        private static bool dateSet;
+        private static bool timeSet;
+        private static DateTime setToDate;
+        private static TimeSpan setToTime;
         public static string Path { get; set; }
         public static bool Recursive { get; set; }
         public static bool FutureOnly { get; set; }
@@ -12,19 +19,13 @@ namespace DateFix
         public static bool TouchDirectories { get; set; }
         public static DateTime SetTo { get; set; }
 
-        private static bool pathSet;
-        private static bool dateSet;
-        private static bool timeSet;
-        private static DateTime setToDate;
-        private static TimeSpan setToTime;
-
-        public static bool Parse(IEnumerable<string> args)
+        public static bool Parse([NotNull] IEnumerable<string> args)
         {
             var argsSeen = new HashSet<string>();
 
             Path = Environment.CurrentDirectory;
             SetTo = DateTime.Now;
-            
+
             pathSet = false;
             dateSet = false;
             timeSet = false;
@@ -32,17 +33,17 @@ namespace DateFix
             setToDate = SetTo.Date;
             setToTime = SetTo.AddSeconds(-1).TimeOfDay;
 
-            foreach (var arg in args)
+            foreach (string arg in args)
             {
                 if (arg.StartsWith("-"))
                 {
-                    var iarg = arg.IndexOf('=');
-                    var parg0 = iarg < 0 ? arg : arg.Substring(0, iarg);
-                    var parg1 = iarg < 0 ? null : arg.Substring(iarg + 1);
+                    int iarg = arg.IndexOf('=');
+                    string parg0 = iarg < 0 ? arg : arg.Substring(0, iarg);
+                    string parg1 = iarg < 0 ? null : arg.Substring(iarg + 1);
 
                     if (argsSeen.Contains(parg0))
                     {
-                        Console.WriteLine(Messages.WarningDuplicateArgument, parg0);
+                        Messages.Warning(Resources.WarningDuplicateArgument, parg0);
                     }
 
                     if (!ParseArg(iarg >= 0, parg0, parg1))
@@ -52,7 +53,7 @@ namespace DateFix
                 {
                     if (pathSet)
                     {
-                        throw new ApplicationException(Messages.ErrorDirectorySpecifiedMoreThanOnce);
+                        throw new ApplicationException(Resources.ErrorDirectorySpecifiedMoreThanOnce);
                     }
 
                     pathSet = true;
@@ -62,7 +63,7 @@ namespace DateFix
 
             if (dateSet && !timeSet)
             {
-                Console.Write(Messages.WarningDateSpecifiedWithoutTime);
+                Messages.Warning(Resources.WarningDateSpecifiedWithoutTime);
                 SetTo = setToDate.Date;
             }
             else
@@ -73,7 +74,8 @@ namespace DateFix
             return true;
         }
 
-        private static bool ParseArg(bool hasValue, string parg0, string parg1)
+        [ContractAnnotation("hasValue: false => parg1: null")]
+        private static bool ParseArg(bool hasValue, [NotNull] string parg0, [CanBeNull] string parg1)
         {
             switch (parg0)
             {
@@ -127,7 +129,7 @@ namespace DateFix
                     break;
 
                 default:
-                    throw new ApplicationException(string.Format(Messages.ErrorUnrecognizedArgument, parg0));
+                    throw new ApplicationException(string.Format(Resources.ErrorUnrecognizedArgument, parg0));
             }
 
             return true;

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using DateFix.Properties;
 
 namespace DateFix
 {
-    static class Fixer
+    internal static class Fixer
     {
         private static readonly Queue<DirectoryInfo> Paths = new Queue<DirectoryInfo>();
 
@@ -12,7 +13,7 @@ namespace DateFix
         {
             try
             {
-                var attr = File.GetAttributes(Args.Path);
+                FileAttributes attr = File.GetAttributes(Args.Path);
 
                 if (attr.HasFlag(FileAttributes.Directory))
                     ProcessPath(new DirectoryInfo(Args.Path));
@@ -21,14 +22,14 @@ namespace DateFix
 
                 while (Paths.Count > 0)
                 {
-                    var dir = Paths.Dequeue();
+                    DirectoryInfo dir = Paths.Dequeue();
 
                     ProcessContents(dir);
                 }
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine(Messages.ErrorWhileProcessing, Args.Path, e.Message);
+                Messages.Error(Resources.ErrorWhileProcessing, Args.Path, e.Message);
             }
         }
 
@@ -36,21 +37,21 @@ namespace DateFix
         {
             try
             {
-                Console.WriteLine(Messages.Processing, dir.FullName);
+                Messages.Info(Resources.Processing, dir.FullName);
 
-                foreach (var file in dir.EnumerateFiles())
+                foreach (FileInfo file in dir.EnumerateFiles())
                 {
                     Touch(file);
                 }
 
-                foreach (var sub in dir.EnumerateDirectories())
+                foreach (DirectoryInfo sub in dir.EnumerateDirectories())
                 {
                     ProcessPath(sub);
                 }
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine(Messages.ErrorWhileProcessing, dir.FullName, e.Message);
+                Messages.Error(Resources.ErrorWhileProcessing, dir.FullName, e.Message);
             }
         }
 
@@ -67,9 +68,9 @@ namespace DateFix
         {
             try
             {
-                var attr = info.Attributes;
+                FileAttributes attr = info.Attributes;
 
-                var wasReadonly = false;
+                bool wasReadonly = false;
 
                 if (attr.HasFlag(FileAttributes.ReadOnly))
                 {
@@ -80,10 +81,12 @@ namespace DateFix
                     info.Attributes = info.Attributes & ~FileAttributes.ReadOnly;
                 }
 
-                if (info.CreationTime > Args.SetTo || info.LastAccessTime > Args.SetTo || info.LastWriteTime > Args.SetTo ||
+                if (info.CreationTime > Args.SetTo ||
+                    info.LastAccessTime > Args.SetTo ||
+                    info.LastWriteTime > Args.SetTo ||
                     !Args.FutureOnly)
                 {
-                    Console.WriteLine(Messages.Touching, info.FullName);
+                    Messages.Info(Resources.Touching, info.FullName);
 
                     info.CreationTime = Args.SetTo;
                     info.LastAccessTime = Args.SetTo;
@@ -97,7 +100,7 @@ namespace DateFix
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine(Messages.ErrorWhileTouching, info.FullName, e.Message);
+                Messages.Error(Resources.ErrorWhileTouching, info.FullName, e.Message);
             }
         }
     }
